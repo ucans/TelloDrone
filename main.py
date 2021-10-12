@@ -1,12 +1,15 @@
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# 201834952 정수연
+# My Tello Project
+# 어떤 프로젝트를 만들 것인가?
+
+# time이 어떤 클래스인가?
 import time
 
 from utils import *
 import cv2 as cv
 
 # Press the green button in the gutter to run the script.
-if __name__ == '__main__':
+if __name__ == '__main1__':
     # 201834952 정수연
     myDrone = initTello()
     # moveTello(myDrone)
@@ -29,8 +32,7 @@ if __name__ == '__main__':
             myDrone.streamoff()
             exit(0)
             break
-        if keyborad == ord('w') : myDrone.move_forward(20)
-        if keyborad == ord('s') : myDrone.move_back(20)
-        if keyborad == ord('a') : myDrone.move_left(20)
-        if keyborad == ord('d') : myDrone.move_right(20)
-
+        if keyborad == ord('w'): myDrone.move_forward(20)
+        if keyborad == ord('s'): myDrone.move_back(20)
+        if keyborad == ord('a'): myDrone.move_left(20)
+        if keyborad == ord('d'): myDrone.move_right(20)
