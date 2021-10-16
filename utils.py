@@ -2,7 +2,8 @@ from djitellopy import Tello
 import cv2 as cv
 import time
 
-def initTello() :
+
+def init_tello() -> Tello:
     tello = Tello()
     # drone connection
     tello.connect()
@@ -14,11 +15,26 @@ def initTello() :
     tello.yaw_velocity = 0
     tello.speed = 0
 
-    print("\n * Drone battery percentage : " + str(myDrone.get_battery()) + "%")
-    tello.streamoff()
+    print_battery(tello)
+    tello.streamoff()   # for better Socket communication
     return tello
 
-def moveTello(tello) :
+
+def print_battery(tello):
+    str_battery = str(tello.get_battery())
+    print("\n * Drone battery percentage : " + str_battery + "%")
+    return
+
+
+def show_window(tello):
+    # tello = Tello()
+    while True:
+        img = tello.get_frame_read().frame
+        cv.imshow("Tello", img)
+        cv.waitKey(1)
+
+
+def moveTello(tello):
     tello.takeoff()
     time.sleep(5)
 

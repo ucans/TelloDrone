@@ -1,38 +1,44 @@
 # 201834952 정수연
 # My Tello Project
-# 어떤 프로젝트를 만들 것인가?
+# The Tello pet
 
-# time이 어떤 클래스인가?
 import time
 
 from utils import *
 import cv2 as cv
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main1__':
-    # 201834952 정수연
-    myDrone = initTello()
-    # moveTello(myDrone)
+TOLERANCE_X = 5
+TOLERANCE_Y = 5
+SLOWDOWN_THRESHOLD_X = 20
+SLOWDOWN_THRESHOLD_Y = 20
 
-    myDrone.takeoff()
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    tello = init_tello()
+
+    tello.takeoff()
     time.sleep(1)
-    myDrone.streamon()
+
+    tello.streamon()
     cv.namedWindow("Drone")
-    frame_read = myDrone.get_frame_read()
+    frame_read = tello.get_frame_read()
     time.sleep(2)
+
+    show_window(tello)
 
     while True:
         img = frame_read.frame
+        # TODO : gray scaling
         cv.imshow("Drone", img)
 
         keyborad = cv.waitKey(1)
         if keyborad & 0xFF == ord('q'):
-            myDrone.land()
+            tello.land()
             frame_read.stop()
-            myDrone.streamoff()
+            tello.streamoff()
             exit(0)
             break
-        if keyborad == ord('w'): myDrone.move_forward(20)
-        if keyborad == ord('s'): myDrone.move_back(20)
-        if keyborad == ord('a'): myDrone.move_left(20)
-        if keyborad == ord('d'): myDrone.move_right(20)
+        if keyborad == ord('w'): tello.move_forward(20)
+        if keyborad == ord('s'): tello.move_back(20)
+        if keyborad == ord('a'): tello.move_left(20)
+        if keyborad == ord('d'): tello.move_right(20)
