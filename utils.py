@@ -3,33 +3,39 @@ import cv2 as cv
 import time
 
 def initTello() :
-    myDrone = Tello()
+    tello = Tello()
     # drone connection
-    myDrone.connect()
+    tello.connect()
 
     # set all speed to 0
-    myDrone.for_back_velocity = 0
-    myDrone.left_right_velocity = 0
-    myDrone.up_down_velocity = 0
-    myDrone.yaw_velocity = 0
-    myDrone.speed = 0
+    tello.for_back_velocity = 0
+    tello.left_right_velocity = 0
+    tello.up_down_velocity = 0
+    tello.yaw_velocity = 0
+    tello.speed = 0
 
     print("\n * Drone battery percentage : " + str(myDrone.get_battery()) + "%")
-    myDrone.streamoff()
-    return myDrone
+    tello.streamoff()
+    return tello
 
-def moveTello(myDrone) :
-    myDrone.takeoff()
+def moveTello(tello) :
+    tello.takeoff()
     time.sleep(5)
-    myDrone.move_back(50)
+
+    tello.move_back(50)
     time.sleep(5)
-    myDrone.rotate_clockwise(360)
+
+    tello.rotate_clockwise(360)
     time.sleep(5)
-    myDrone.move_forward(50)
+
+    tello.move_forward(50)
     time.sleep(5)
-    myDrone.flip_right()
+
+    tello.flip_right()
     time.sleep(5)
-    myDrone.flip_left()
+
+    tello.flip_left()
     time.sleep(5)
-    myDrone.land()
+
+    tello.land()
     time.sleep(5)
