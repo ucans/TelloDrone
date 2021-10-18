@@ -1,6 +1,8 @@
-# 201834952 정수연
-# My Tello Project
-# The Tello pet
+"""
+201834952 suyeon Chung
+Tello + openCV
+
+"""
 
 import time
 
@@ -11,6 +13,9 @@ TOLERANCE_X = 5
 TOLERANCE_Y = 5
 SLOWDOWN_THRESHOLD_X = 20
 SLOWDOWN_THRESHOLD_Y = 20
+
+w, h = 360, 240
+pError = 0
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -24,14 +29,16 @@ if __name__ == '__main__':
     frame_read = tello.get_frame_read()
     time.sleep(2)
 
-    show_window(tello)
-
     while True:
         img = frame_read.frame
-        # TODO : gray scaling
-        cv.imshow("Drone", img)
+        img = cv.resize(img, (w, h))
+        img, info = detect_face(img)
+        pError = trace_face(tello, info, w, pid, pError)
 
+        print("Center :", info[0], "Area : ", info[1])
+        cv.imshow('img', img)
         keyborad = cv.waitKey(1)
+
         if keyborad & 0xFF == ord('q'):
             tello.land()
             frame_read.stop()
