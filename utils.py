@@ -6,7 +6,7 @@ import time
 fbRange = [6200, 6800]
 pid = [0.4, 0.4, 0]
 
-def init_tello() -> Tello:
+def init_tello():
     tello = Tello()
     # drone connection
     tello.connect()
@@ -47,8 +47,6 @@ def detect_face(img):
         myFaceListArea.append(area)
 
         cv.circle(img, (cx, cy), 5, (0, 255, 0), cv.FILLED)  # Center of face
-        roi_face = img[y: y + h, x:x + w]
-        cv.imshow("roi_face", roi_face)  # show faces
 
     if len(myFaceListArea) != 0:
         i = myFaceListArea.index(max(myFaceListArea))

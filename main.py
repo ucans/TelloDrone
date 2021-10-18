@@ -5,14 +5,8 @@ Tello + openCV
 """
 
 import time
-
 from utils import *
 import cv2 as cv
-
-TOLERANCE_X = 5
-TOLERANCE_Y = 5
-SLOWDOWN_THRESHOLD_X = 20
-SLOWDOWN_THRESHOLD_Y = 20
 
 w, h = 360, 240
 pError = 0
@@ -25,7 +19,6 @@ if __name__ == '__main__':
     time.sleep(1)
 
     tello.streamon()
-    cv.namedWindow("Drone")
     frame_read = tello.get_frame_read()
     time.sleep(2)
 
@@ -36,7 +29,7 @@ if __name__ == '__main__':
         pError = trace_face(tello, info, w, pid, pError)
 
         print("Center :", info[0], "Area : ", info[1])
-        cv.imshow('img', img)
+        cv.imshow('Output', img)
         keyborad = cv.waitKey(1)
 
         if keyborad & 0xFF == ord('q'):
