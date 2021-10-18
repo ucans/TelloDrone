@@ -1,9 +1,3 @@
-"""
-201834952 suyeon Chung
-Tello + openCV
-
-"""
-
 import time
 from utils import *
 import cv2 as cv
