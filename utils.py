@@ -63,23 +63,6 @@ def detect_face(img):
         return img, [[0, 0], 0], roi
 
 
-
-# def face_detector(img, size=0.5):
-#     face_classifier = cv.CascadeClassifier('haarcascades_XML/haarcascade_frontalface_default.xml')
-#     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-#     faces = face_classifier.detectMultiScale(gray, 1.3, 5)
-#
-#     if faces is ():
-#         return img, []
-#
-#     for (x, y, w, h) in faces:
-#         cv.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), 2)
-#         roi = img[y:y + h, x:x + w]
-#         roi = cv.resize(roi, (200, 200))
-#
-#     return img, roi
-
-
 def trace_face(me, info, w, pid, pError):
     area = info[1]
     x, y = info[0]
@@ -128,7 +111,7 @@ def face_collect():
         ret, frame = cap.read()
         if face_extractor(frame) is not None:
             count += 1
-            # 200 x 200 정사각형 사이즈로
+            # 200 x 200 정사각형 사이즈로 저장하기
             face = cv.resize(face_extractor(frame), (200, 200))
             face = cv.cvtColor(face, cv.COLOR_BGR2GRAY)
 
@@ -136,7 +119,6 @@ def face_collect():
             cv.imwrite(file_name_path, face)
 
             cv.putText(face, str(count), (50, 50), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
-            cv.imshow('Face Cropper', face)
         else:
             print("Face not Found")
             pass
@@ -171,39 +153,3 @@ def learning():
     print("Model Training Complete!!!!!")
     return model
 
-
-# while True:
-#
-#     ret, frame = cap.read()
-#     image, face = face_detector(frame)
-#
-#     try:
-#         face = cv.cvtColor(face, cv.COLOR_BGR2GRAY)
-#         result = model.predict(face)
-#
-#         if result[1] < 500:
-#             confidence = int(100 * (1 - (result[1]) / 300))
-#             display_string = str(confidence) + '% Confidence it is user'
-#         cv.putText(image, display_string, (100, 120), cv.FONT_HERSHEY_COMPLEX, 1, (250, 120, 255), 2)
-#
-#         # 신뢰도가 75보다 크면, 드론이 나를 따라옴.
-#         if confidence > 75:
-#             cv2.putText(image, "Unlocked", (250, 450), cv.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
-#             cv2.imshow('Face Cropper', image)
-#
-#         # 신뢰도가 그 밑이면, 드론 가만히 있음.
-#         else:
-#             cv.putText(image, "Locked", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
-#             cv.imshow('Face Cropper', image)
-#
-#
-#     except:
-#         cv.putText(image, "Face Not Found", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 2)
-#         cv.imshow('Face Cropper', image)
-#         pass
-#
-#     if cv.waitKey(1) == 13:
-#         break
-#
-# cap.release()
-# cv.destroyAllWindows()
